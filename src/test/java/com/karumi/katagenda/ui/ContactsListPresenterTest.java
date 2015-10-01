@@ -97,6 +97,44 @@ public class ContactsListPresenterTest {
     assertTrue(newContacts.contains(contactToCreate));
   }
 
+  @Test public void shouldShowAnErrorIfTheFirstNameOfTheNewContactIsEmpty() {
+    ContactsListPresenter presenter = givenAContactsListPresenter();
+    givenTheUserTypesContactInfo("", ANY_LAST_NAME, ANY_PHONE_NUMBER);
+
+    presenter.onInitialize();
+    presenter.onAddContactOptionSelected();
+
+    verify(view).showDefaultError();
+  }
+
+
+  @Test public void shouldShowAnErrorIfTheLastNameOfTheNewContactIsEmpty() {
+    ContactsListPresenter presenter = givenAContactsListPresenter();
+    givenTheUserTypesContactInfo(ANY_FIRST_NAME, "", ANY_PHONE_NUMBER);
+
+    presenter.onInitialize();
+    presenter.onAddContactOptionSelected();
+
+    verify(view).showDefaultError();
+  }
+
+
+  @Test public void shouldShowAnErrorIfTheNameOfTheNewContactIsEmpty() {
+    ContactsListPresenter presenter = givenAContactsListPresenter();
+    givenTheUserTypesContactInfo(ANY_FIRST_NAME, ANY_LAST_NAME, "");
+
+    presenter.onInitialize();
+    presenter.onAddContactOptionSelected();
+
+    verify(view).showDefaultError();
+  }
+
+  private void givenTheUserTypesContactInfo(String t, String anyLastName, String anyPhoneNumber) {
+    when(view.getNewContactFirstName()).thenReturn(t);
+    when(view.getNewContactLastName()).thenReturn(anyLastName);
+    when(view.getNewContactPhoneNumber()).thenReturn(anyPhoneNumber);
+  }
+
   private void givenTheContactIsAddedCorrectly(Contact contact) {
     when(addContact.execute(contact)).thenReturn(contact);
     LinkedList<Contact> newContacts = new LinkedList<>();
@@ -124,9 +162,8 @@ public class ContactsListPresenterTest {
 
   private Contact givenTheUserAddsAContact() {
     Contact contact = new Contact(ANY_FIRST_NAME, ANY_LAST_NAME, ANY_PHONE_NUMBER);
-    when(view.getNewContactFirstName()).thenReturn(contact.getFirstName());
-    when(view.getNewContactLastName()).thenReturn(contact.getLastName());
-    when(view.getNewContactPhoneNumber()).thenReturn(contact.getPhoneNumber());
+    givenTheUserTypesContactInfo(contact.getFirstName(), contact.getLastName(),
+        contact.getPhoneNumber());
     return contact;
   }
 }
