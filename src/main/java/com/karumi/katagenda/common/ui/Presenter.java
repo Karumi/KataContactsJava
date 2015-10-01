@@ -20,14 +20,22 @@ import java.util.List;
 
 public abstract class Presenter<T extends Presenter.View> {
 
+  private final T view;
+
+  public Presenter(T view) {
+    this.view = view;
+  }
+
+  protected T getView(){
+    return view;
+  }
+
   public abstract void onInitialize();
 
   public abstract void onStop();
 
   public interface View {
 
-    void showError(String message);
-
-    void print(List<Object> values);
+    void showDefaultError();
   }
 }

@@ -17,18 +17,62 @@
 package com.karumi.katagenda.ui;
 
 import com.karumi.katagenda.common.ui.Presenter;
+import com.karumi.katagenda.domain.Contact;
+import com.karumi.katagenda.usecase.AddContact;
+import com.karumi.katagenda.usecase.GetContacts;
+import java.util.List;
 
 public class ContactsListPresenter extends Presenter<ContactsListPresenter.View> {
 
-  @Override public void onInitialize() {
+  private final GetContacts getContacts;
+  private final AddContact addContact;
 
+  public ContactsListPresenter(ContactsListPresenter.View view, GetContacts getContacts, AddContact addContact) {
+    super(view);
+    this.getContacts = getContacts;
+    this.addContact = addContact;
+  }
+
+  @Override public void onInitialize() {
+    getView().showWelcomeMessage();
+    loadContactsList();
   }
 
   @Override public void onStop() {
+    getView().showGoodbyeMessage();
+  }
 
+  public void onAddContactOptionSelected() {
+    Contact contactToAdd = requestNewContact();
+    addContact.execute(contactToAdd);
+    loadContactsList();
+  }
+
+  private Contact requestNewContact() {
+    View view = getView();
+    String firstName = view.getNewContactFirstName();
+    String lastName = view.getNewContactLastName();
+    String phoneNumber = view.getNewContactPhoneNumber();
+    return new Contact(firstName,lastName,phoneNumber);
+  }
+
+  private void loadContactsList() {
+    List<Contact> contactList = getContacts.execute();
+    getView().showContacts(contactList);
   }
 
   public interface View extends Presenter.View {
 
+    void showWelcomeMessage();
+
+    void showGoodbyeMessage();
+
+    void showContacts(List<Contact> contactList);
+
+    String getNewContactFirstName();
+
+    String getNewContactLastName();
+
+    String getNewContactPhoneNumber();
   }
 }
