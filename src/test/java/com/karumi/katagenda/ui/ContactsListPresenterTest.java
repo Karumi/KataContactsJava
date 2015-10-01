@@ -45,6 +45,14 @@ public class ContactsListPresenterTest {
     MockitoAnnotations.initMocks(this);
   }
 
+  @Test public void shouldShowWelcomeMessageOnInitialize() {
+    ContactsListPresenter presenter = givenAContactsListPresenter();
+
+    presenter.onInitialize();
+
+    verify(view).showWelcomeMessage();
+  }
+
   @Test public void shouldShowEmptyCaseIfTheAgendaIsEmpty() {
     ContactsListPresenter presenter = givenAContactsListPresenter();
     givenTheAgendaIsEmpty();
@@ -62,6 +70,15 @@ public class ContactsListPresenterTest {
 
     verify(view).showContacts(contacts);
   }
+
+  @Test public void shouldShowGoodbyeMessageOnStop() {
+    ContactsListPresenter presenter = givenAContactsListPresenter();
+
+    presenter.onStop();
+
+    verify(view).showGoodbyeMessage();
+  }
+
 
   private void givenTheAgendaIsEmpty() {
     when(getContacts.execute()).thenReturn(Collections.<Contact>emptyList());
