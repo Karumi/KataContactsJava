@@ -18,34 +18,53 @@ package com.karumi.katagenda.ui;
 
 import com.karumi.katagenda.domain.Contact;
 import java.util.List;
+import java.util.Scanner;
 
 public class SysOutContactsListView implements ContactsListPresenter.View {
 
   @Override public void showWelcomeMessage() {
-
+    print("Welcome to your awesome agenda!");
+    print("I'm going to ask you about some of your contacts information :)");
   }
 
   @Override public void showGoodbyeMessage() {
-
+    print("See you soon!");
   }
 
   @Override public void showContacts(List<Contact> contactList) {
-
+    for (Contact contact : contactList) {
+      String firstName = contact.getFirstName();
+      String lastName = contact.getLastName();
+      String phoneNumber = contact.getPhoneNumber();
+      print(firstName + " - " + lastName + " - " + phoneNumber);
+    }
   }
 
   @Override public String getNewContactFirstName() {
-    return null;
+    print("First name:");
+    return readLine();
   }
 
   @Override public String getNewContactLastName() {
-    return null;
+    print("Last name:");
+    return readLine();
   }
 
   @Override public String getNewContactPhoneNumber() {
-    return null;
+    print("Phone number:");
+    return readLine();
   }
 
   @Override public void showDefaultError() {
 
+  }
+
+  private void print(String line) {
+    System.out.println(line);
+  }
+
+  private String readLine() {
+    Scanner scanner = new Scanner(System.in);
+    return scanner.nextLine();
   }
 }
