@@ -28,7 +28,7 @@ public class SysOutContactsListView implements ContactsListPresenter.View {
   }
 
   @Override public void showGoodbyeMessage() {
-    print("See you soon!");
+    print("\nSee you soon!");
   }
 
   @Override public void showContacts(List<Contact> contactList) {
