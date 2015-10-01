@@ -27,4 +27,8 @@ public class InMemoryDataSource<T> implements DataSource<T> {
     return values;
   }
 
+  @Override public T add(T item) {
+    values.add(item);
+    return item;
+  }
 }

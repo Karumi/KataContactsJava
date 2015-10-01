@@ -39,4 +39,22 @@ public class Contact {
   public String getPhoneNumber() {
     return phoneNumber;
   }
+
+  @Override public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+
+    Contact contact = (Contact) o;
+
+    if (!firstName.equals(contact.firstName)) return false;
+    if (!lastName.equals(contact.lastName)) return false;
+    return phoneNumber.equals(contact.phoneNumber);
+  }
+
+  @Override public int hashCode() {
+    int result = firstName.hashCode();
+    result = 31 * result + lastName.hashCode();
+    result = 31 * result + phoneNumber.hashCode();
+    return result;
+  }
 }

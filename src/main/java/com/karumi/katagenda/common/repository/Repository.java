@@ -33,4 +33,8 @@ public class Repository<T> {
   public List<T> getAll() {
     return dataSource.getAll();
   }
+
+  public T add(T item) {
+    return dataSource.add(item);
+  }
 }

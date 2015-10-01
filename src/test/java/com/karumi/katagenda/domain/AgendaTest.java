@@ -23,9 +23,14 @@ import com.karumi.katagenda.domain.repository.ContactsRepository;
 import java.util.List;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class AgendaTest {
+
+  private static final String ANY_FIRST_NAME = "Pedro Vicente";
+  private static final String ANY_LAST_NAME = "Gomez Sanchez";
+  private static final String ANY_PHONE_NUMBER = "666666666";
 
   @Test public void shouldReturnAnEmptyListOfContactsIfTheAgendaIsEmpty() {
     Agenda agenda = givenAnAgenda();
@@ -33,6 +38,30 @@ public class AgendaTest {
     List<Contact> contacts = agenda.getContacts();
 
     assertTrue(contacts.isEmpty());
+  }
+
+  @Test public void shouldReturnTheContactCreatedOnContactAdded() {
+    Agenda agenda = givenAnAgenda();
+    Contact contactToAdd = givenAnyContact();
+
+    Contact createdContact = agenda.addContact(contactToAdd);
+
+    assertEquals(contactToAdd, createdContact);
+  }
+
+  @Test public void shouldReturnTheNewContactAfterTheCreationUsingGetContacts() {
+    Agenda agenda = givenAnAgenda();
+    Contact contact = givenAnyContact();
+
+    agenda.addContact(contact);
+
+    List<Contact> contacts = agenda.getContacts();
+    assertTrue(contacts.contains(contact));
+    assertEquals(1, contacts.size());
+  }
+
+  private Contact givenAnyContact() {
+    return new Contact(ANY_FIRST_NAME, ANY_LAST_NAME, ANY_PHONE_NUMBER);
   }
 
   private Agenda givenAnAgenda() {

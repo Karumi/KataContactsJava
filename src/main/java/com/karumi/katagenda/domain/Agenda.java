@@ -30,4 +30,8 @@ public class Agenda {
   public List<Contact> getContacts() {
     return contactsRepository.getAll();
   }
+
+  public Contact addContact(Contact contact) {
+    return contactsRepository.add(contact);
+  }
 }

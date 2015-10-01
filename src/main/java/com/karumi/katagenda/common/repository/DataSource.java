@@ -21,4 +21,6 @@ import java.util.List;
 public interface DataSource <T> {
 
   List<T> getAll();
+
+  T add(T item);
 }
