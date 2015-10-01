@@ -71,7 +71,11 @@ public class ContactsListPresenter extends Presenter<ContactsListPresenter.View>
 
   private void loadContactsList() {
     List<Contact> contactList = getContacts.execute();
-    getView().showContacts(contactList);
+    if (contactList.isEmpty()) {
+      getView().showEmptyCase();
+    } else {
+      getView().showContacts(contactList);
+    }
   }
 
   public interface View extends Presenter.View {

@@ -59,6 +59,10 @@ public class SysOutContactsListView implements ContactsListPresenter.View {
     print("Ups, something went wrong :( Try again!");
   }
 
+  @Override public void showEmptyCase() {
+    print("Your agenda is empty!");
+  }
+
   private void print(String line) {
     System.out.println(line);
   }

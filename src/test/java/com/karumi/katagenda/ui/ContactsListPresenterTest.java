@@ -19,6 +19,7 @@ package com.karumi.katagenda.ui;
 import com.karumi.katagenda.domain.Contact;
 import com.karumi.katagenda.usecase.AddContact;
 import com.karumi.katagenda.usecase.GetContacts;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import org.junit.Before;
@@ -44,6 +45,15 @@ public class ContactsListPresenterTest {
     MockitoAnnotations.initMocks(this);
   }
 
+  @Test public void shouldShowEmptyCaseIfTheAgendaIsEmpty() {
+    ContactsListPresenter presenter = givenAContactsListPresenter();
+    givenTheAgendaIsEmpty();
+
+    presenter.onInitialize();
+
+    verify(view).showEmptyCase();
+  }
+
   @Test public void shouldShowContactsFromTheAgendaOnInitialize() {
     ContactsListPresenter presenter = givenAContactsListPresenter();
     List<Contact> contacts = givenTheAgendaIsNotEmpty();
@@ -53,10 +63,14 @@ public class ContactsListPresenterTest {
     verify(view).showContacts(contacts);
   }
 
+  private void givenTheAgendaIsEmpty() {
+    when(getContacts.execute()).thenReturn(Collections.<Contact>emptyList());
+  }
+
   private List<Contact> givenTheAgendaIsNotEmpty() {
     List<Contact> contacts = new LinkedList<>();
     for (int i = 0; i < ANY_NUMBER_OF_CONTACTS; i++) {
-      Contact contact = new Contact(ANY_FIRST_NAME,ANY_LAST_NAME,ANY_PHONE_NUMBER);
+      Contact contact = new Contact(ANY_FIRST_NAME, ANY_LAST_NAME, ANY_PHONE_NUMBER);
       contacts.add(contact);
     }
     when(getContacts.execute()).thenReturn(contacts);

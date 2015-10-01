@@ -35,5 +35,7 @@ public abstract class Presenter<T extends Presenter.View> {
   public interface View {
 
     void showDefaultError();
+
+    void showEmptyCase();
   }
 }
