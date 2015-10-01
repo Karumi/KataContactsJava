@@ -27,7 +27,8 @@ public class ContactsListPresenter extends Presenter<ContactsListPresenter.View>
   private final GetContacts getContacts;
   private final AddContact addContact;
 
-  public ContactsListPresenter(ContactsListPresenter.View view, GetContacts getContacts, AddContact addContact) {
+  public ContactsListPresenter(ContactsListPresenter.View view, GetContacts getContacts,
+      AddContact addContact) {
     super(view);
     this.getContacts = getContacts;
     this.addContact = addContact;
@@ -53,7 +54,7 @@ public class ContactsListPresenter extends Presenter<ContactsListPresenter.View>
     String firstName = view.getNewContactFirstName();
     String lastName = view.getNewContactLastName();
     String phoneNumber = view.getNewContactPhoneNumber();
-    return new Contact(firstName,lastName,phoneNumber);
+    return new Contact(firstName, lastName, phoneNumber);
   }
 
   private void loadContactsList() {

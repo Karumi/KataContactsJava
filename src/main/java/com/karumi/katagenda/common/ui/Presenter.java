@@ -16,8 +16,6 @@
 
 package com.karumi.katagenda.common.ui;
 
-import java.util.List;
-
 public abstract class Presenter<T extends Presenter.View> {
 
   private final T view;
@@ -26,7 +24,7 @@ public abstract class Presenter<T extends Presenter.View> {
     this.view = view;
   }
 
-  protected T getView(){
+  protected T getView() {
     return view;
   }
 
