@@ -107,7 +107,6 @@ public class ContactsListPresenterTest {
     verify(view).showDefaultError();
   }
 
-
   @Test public void shouldShowAnErrorIfTheLastNameOfTheNewContactIsEmpty() {
     ContactsListPresenter presenter = givenAContactsListPresenter();
     givenTheUserTypesContactInfo(ANY_FIRST_NAME, "", ANY_PHONE_NUMBER);
@@ -117,7 +116,6 @@ public class ContactsListPresenterTest {
 
     verify(view).showDefaultError();
   }
-
 
   @Test public void shouldShowAnErrorIfTheNameOfTheNewContactIsEmpty() {
     ContactsListPresenter presenter = givenAContactsListPresenter();
