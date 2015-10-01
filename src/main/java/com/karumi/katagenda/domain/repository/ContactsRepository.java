@@ -25,5 +25,4 @@ public class ContactsRepository extends Repository<Contact> {
   public ContactsRepository(DataSource<Contact> dataSource) {
     super(dataSource);
   }
-
 }
