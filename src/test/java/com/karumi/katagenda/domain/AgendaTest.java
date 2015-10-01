@@ -16,6 +16,10 @@
 
 package com.karumi.katagenda.domain;
 
+import com.karumi.katagenda.common.repository.DataSource;
+import com.karumi.katagenda.common.repository.Repository;
+import com.karumi.katagenda.domain.doubles.FakeContactsDataSource;
+import com.karumi.katagenda.domain.repository.ContactsRepository;
 import java.util.List;
 import org.junit.Test;
 
@@ -32,6 +36,8 @@ public class AgendaTest {
   }
 
   private Agenda givenAnAgenda() {
-    return new Agenda();
+    DataSource<Contact> dataSource = new FakeContactsDataSource();
+    Repository<Contact> contactsRepository = new ContactsRepository(dataSource);
+    return new Agenda(contactsRepository);
   }
 }

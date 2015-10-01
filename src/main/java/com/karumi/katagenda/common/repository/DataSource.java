@@ -14,20 +14,8 @@
  * limitations under the License.
  */
 
-package com.karumi.katagenda.domain;
+package com.karumi.katagenda.common.repository;
 
-import com.karumi.katagenda.common.repository.Repository;
-import java.util.List;
+public interface DataSource <T> {
 
-public class Agenda {
-
-  private final Repository<Contact> contactsRepository;
-
-  public Agenda(Repository<Contact> contactsRepository) {
-    this.contactsRepository = contactsRepository;
-  }
-
-  public List<Contact> getContacts() {
-    return null;
-  }
 }

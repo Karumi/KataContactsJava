@@ -14,20 +14,16 @@
  * limitations under the License.
  */
 
-package com.karumi.katagenda.domain;
+package com.karumi.katagenda.domain.repository;
 
+import com.karumi.katagenda.common.repository.DataSource;
 import com.karumi.katagenda.common.repository.Repository;
-import java.util.List;
+import com.karumi.katagenda.domain.Contact;
 
-public class Agenda {
+public class ContactsRepository extends Repository<Contact> {
 
-  private final Repository<Contact> contactsRepository;
-
-  public Agenda(Repository<Contact> contactsRepository) {
-    this.contactsRepository = contactsRepository;
+  public ContactsRepository(DataSource<Contact> dataSource) {
+    super(dataSource);
   }
 
-  public List<Contact> getContacts() {
-    return null;
-  }
 }
