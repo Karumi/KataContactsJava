@@ -45,8 +45,12 @@ public class ContactsListPresenter extends Presenter<ContactsListPresenter.View>
 
   public void onAddContactOptionSelected() {
     Contact contactToAdd = requestNewContact();
-    addContact.execute(contactToAdd);
-    loadContactsList();
+    if (contactToAdd == null) {
+      getView().showDefaultError();
+    } else {
+      addContact.execute(contactToAdd);
+      loadContactsList();
+    }
   }
 
   private Contact requestNewContact() {
@@ -54,7 +58,15 @@ public class ContactsListPresenter extends Presenter<ContactsListPresenter.View>
     String firstName = view.getNewContactFirstName();
     String lastName = view.getNewContactLastName();
     String phoneNumber = view.getNewContactPhoneNumber();
-    return new Contact(firstName, lastName, phoneNumber);
+    Contact contact = null;
+    if (isContactInfoValue(firstName, lastName, phoneNumber)) {
+      contact = new Contact(firstName, lastName, phoneNumber);
+    }
+    return contact;
+  }
+
+  private boolean isContactInfoValue(String firstName, String lastName, String phoneNumber) {
+    return !firstName.isEmpty() && !lastName.isEmpty() && !phoneNumber.isEmpty();
   }
 
   private void loadContactsList() {

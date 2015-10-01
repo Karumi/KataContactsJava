@@ -56,7 +56,7 @@ public class SysOutContactsListView implements ContactsListPresenter.View {
   }
 
   @Override public void showDefaultError() {
-
+    print("Ups, something went wrong :( Try again!");
   }
 
   private void print(String line) {
