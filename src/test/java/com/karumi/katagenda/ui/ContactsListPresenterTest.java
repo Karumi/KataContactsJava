@@ -24,9 +24,13 @@ import java.util.LinkedList;
 import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -40,6 +44,7 @@ public class ContactsListPresenterTest {
   @Mock private ContactsListPresenter.View view;
   @Mock private GetContacts getContacts;
   @Mock private AddContact addContact;
+  @Captor private ArgumentCaptor<List<Contact>> contactsCaptor;
 
   @Before public void setUp() {
     MockitoAnnotations.initMocks(this);
@@ -79,6 +84,25 @@ public class ContactsListPresenterTest {
     verify(view).showGoodbyeMessage();
   }
 
+  @Test public void shouldShowTheContactsListWithTheNewContactOnContactAdded() {
+    ContactsListPresenter presenter = givenAContactsListPresenter();
+    Contact contactToCreate = givenTheUserAddsAContact();
+    givenTheContactIsAddedCorrectly(contactToCreate);
+
+    presenter.onInitialize();
+    presenter.onAddContactOptionSelected();
+
+    verify(view, times(2)).showContacts(contactsCaptor.capture());
+    List<Contact> newContacts = contactsCaptor.getAllValues().get(1);
+    assertTrue(newContacts.contains(contactToCreate));
+  }
+
+  private void givenTheContactIsAddedCorrectly(Contact contact) {
+    when(addContact.execute(contact)).thenReturn(contact);
+    LinkedList<Contact> newContacts = new LinkedList<>();
+    newContacts.add(contact);
+    when(getContacts.execute()).thenReturn(newContacts);
+  }
 
   private void givenTheAgendaIsEmpty() {
     when(getContacts.execute()).thenReturn(Collections.<Contact>emptyList());
@@ -96,5 +120,13 @@ public class ContactsListPresenterTest {
 
   private ContactsListPresenter givenAContactsListPresenter() {
     return new ContactsListPresenter(view, getContacts, addContact);
+  }
+
+  private Contact givenTheUserAddsAContact() {
+    Contact contact = new Contact(ANY_FIRST_NAME, ANY_LAST_NAME, ANY_PHONE_NUMBER);
+    when(view.getNewContactFirstName()).thenReturn(contact.getFirstName());
+    when(view.getNewContactLastName()).thenReturn(contact.getLastName());
+    when(view.getNewContactPhoneNumber()).thenReturn(contact.getPhoneNumber());
+    return contact;
   }
 }
