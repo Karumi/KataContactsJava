@@ -28,6 +28,6 @@ public class Agenda {
   }
 
   public List<Contact> getContacts() {
-    return null;
+    return contactsRepository.getAll();
   }
 }

@@ -14,10 +14,17 @@
  * limitations under the License.
  */
 
-package com.karumi.katagenda.domain.doubles;
+package com.karumi.katagenda.common.repository;
 
-import com.karumi.katagenda.common.repository.DataSource;
-import com.karumi.katagenda.domain.Contact;
+import java.util.LinkedList;
+import java.util.List;
 
-public class FakeContactsDataSource implements DataSource<Contact> {
+public class InMemoryDataSource<T> implements DataSource<T> {
+
+  private final List<T> values = new LinkedList<>();
+
+  @Override public List<T> getAll() {
+    return values;
+  }
+
 }

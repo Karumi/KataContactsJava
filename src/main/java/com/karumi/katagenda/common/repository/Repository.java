@@ -16,6 +16,8 @@
 
 package com.karumi.katagenda.common.repository;
 
+import java.util.List;
+
 public class Repository<T> {
 
   private final DataSource<T> dataSource;
@@ -26,5 +28,9 @@ public class Repository<T> {
 
   public DataSource<T> getDataSource() {
     return dataSource;
+  }
+
+  public List<T> getAll() {
+    return dataSource.getAll();
   }
 }
