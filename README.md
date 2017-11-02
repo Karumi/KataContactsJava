@@ -23,6 +23,13 @@
 
 ---
 
+## Resources
+
+* [Kata Contacts in Kotlin](https://github.com/Karumi/KataContactsKotlin)
+* [Kata Contacts in Swift](https://github.com/Karumi/KataContactsSwift)
+
+---
+
 # License
  
 Copyright 2015 Karumi
