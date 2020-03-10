@@ -8,6 +8,7 @@ gen/
 # Gradle files
 .gradle/
 build/
+local.properties
 
 # IntelliJ files
 .idea
